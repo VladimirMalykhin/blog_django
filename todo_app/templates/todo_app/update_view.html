@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Update</title>
+</head>
+
+<body>
+<style>
+    form,button,h1{
+        text-align: center;
+    }
+    input{
+        border-radius: 4rem;
+        border: 1px solid gray;
+        height: 25px;
+        text-align: center;
+
+
+    }
+    textarea{
+        height: 25px;
+        width: 18%;
+        border-radius: 4rem;
+        border: 1px solid gray;
+        padding-top: 10px;
+        text-align: center;
+    }
+    button{
+        margin-left: 4%;
+    }
+</style>
+  {% if user == author %}
+  <h1>Update</h1>
+
+  <form action="{% url 'update_view' todo_id=form.instance.id %}"
+        method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit">Update</button>
+  </form>
+  {% endif %}
+</body>
+</html>

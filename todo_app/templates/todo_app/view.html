@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>List views</title>
+</head>
+
+<body>
+<style>
+form,button,h1,h2,p{
+        text-align: center;
+    }
+    textarea{
+        height: 25px;
+        width: 18%;
+        border: 1px solid gray;
+        padding-top: 10px;
+        text-align: center;
+    }
+    button{
+        margin-left: 4%;
+    }
+    .comments{
+     margin-left: 38%;
+    text-align: left;
+    width: 40%;
+    }
+    </style>
+  <h1>One post</h1>
+<p>Заголовок:{{ items.title }}</p>
+<p>Автор:{{ items.author }}</p>
+<p>Тело записи:{{ items.body }}</p>
+<p>Дата записи:{{ items.created_at }}</p>
+        <br>
+        <h2>Comments:{{ counter }}</h2>
+<div class="comments">
+{% for comment in comments %}
+    <span>Автор:{{ comment.author }}</span><br/>
+    <span>Коментарий:{{ comment.body }}</span><br/>
+    <span>Дата коментария:{{ comment.created_at }}</span><br/>
+    <br/>
+{% endfor %}
+</div>
+<form  method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit">Create</button>
+  </form>
+</body>
+</html>

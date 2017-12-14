@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create</title>
+</head>
+
+<body>
+<style>
+    form,button,h1{
+        text-align: center;
+    }
+    input{
+        border-radius: 4rem;
+        border: 1px solid gray;
+        height: 25px;
+        text-align: center;
+
+
+    }
+    textarea{
+        height: 25px;
+        width: 18%;
+        border-radius: 4rem;
+        border: 1px solid gray;
+        padding-top: 10px;
+        text-align: center;
+    }
+</style>
+  <h1>Создание записи:</h1>
+{{ author }}
+  <form action="{% url 'create_view' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit">Create</button>
+  </form>
+</body>
+</html>

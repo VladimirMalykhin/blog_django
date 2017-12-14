@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>List views</title>
+</head>
+
+<body>
+<style>
+    h1{
+        text-align: center;
+    }
+    .container{
+    width:100%;
+    border-radius: .4rem;
+    background: #fff;
+    box-shadow: 7px 7px 11px 7px rgba(0,0,0,.2);
+    text-align: center;
+}
+    ul li{
+    list-style: none;
+    }
+    .pagination{
+        text-align: center;
+    }
+    .pagination li{
+        display:inline-block;
+        text-align: center;
+        font-size: 1.7em;
+    }
+</style>
+  <h1>List</h1>
+ <div class="container">
+  <br/>
+    <br/>
+<h2>Автор:{{author}}</h2>
+    <ul>
+    {% for todo in items %}
+        <li>
+          <p><h3>Заголовок:{{ todo.title }}</h3></p> <p><h3>Автор:{{ todo.author }}</h3></p>
+          <h3>Запись:{{ todo.body }}</h3></p><p><h3>Дата записи:{{ todo.created_at }}</h3></p>
+        <a href="{% url 'view' todo_id=todo.id %}">More info</a>
+     {% if todo.author == author %}
+      <form action="{% url 'delete_view' todo_id=todo.id %}"
+              method="POST">
+          {% csrf_token %}
+      <button type="submit">Delete</button> 
+      </form>
+      <a href="{% url 'update_view' todo_id=todo.id %}">Update</a>
+     {% endif %}
+      </li>
+    {% empty %}
+      <li>Empty!</li>
+    {% endfor %}
+  </ul>
+    <br/>
+    <br/>
+</div>
+  <ul class="pagination">
+  {% if items.has_previous%}
+
+  <li><a href="/page/{{ items.previous_page_number  }}/">&laquo;</a></li>
+  {% else %}
+  <li><a href="">&laquo;</a></li>
+  {% endif %}
+  {% for page in items.paginator.page_range %}
+  {% if page == items.number %}
+  <li><a style="color:red" href="/page/{{ page }}">{{ page }}</a></li>
+
+  {% else %}
+  <li><a  href="/page/{{ page }}">{{ page }}</a></li>
+  {% endif %}
+  {% endfor %}
+  {% if items.has_next%}
+  <li><a href="/page/{{ items.next_page_number  }}/">&raquo;</a></li>
+  {% else %}
+  <li><a href="">&raquo;</a></li>
+  {% endif %}
+   </ul>
+</body>
+</html>
